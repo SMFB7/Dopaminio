@@ -130,7 +130,7 @@
     if (isSupported)
         jailbreakButtonImage = [UIImage systemImageNamed:@"lock.open" withConfiguration:[DOGlobalAppearance smallIconImageConfiguration]];
     else
-        jailbreakButtonImage = [UIImage systemImageNamed:@"lock.slash" withConfiguration:[DOGlobalAppearance smallIconImageConfiguration]];
+        jailbreakButtonImage = [UIImage systemImageNamed:@"lock.open" withConfiguration:[DOGlobalAppearance smallIconImageConfiguration]];
     
     self.jailbreakBtn = [[DOJailbreakButton alloc] initWithAction: [UIAction actionWithTitle:jailbreakButtonTitle image:jailbreakButtonImage identifier:@"jailbreak" handler:^(__kindof UIAction * _Nonnull action) {
         [actionView hide];
@@ -145,7 +145,7 @@
         [self startJailbreak];
         
     }]];
-    self.jailbreakBtn.enabled = !isJailbroken && isSupported;
+    self.jailbreakBtn.enabled = !isJailbroken;
 
     [self.view addSubview:self.jailbreakBtn];
 
@@ -179,9 +179,7 @@
     BOOL removeJailbreakEnabled = [[DOPreferenceManager sharedManager] boolPreferenceValueForKey:@"removeJailbreakEnabled" fallback:NO];
 
     NSString *jailbreakButtonTitle = DOLocalizedString(@"Button_Jailbreak_Title");
-    if (!isSupported)
-        jailbreakButtonTitle = DOLocalizedString(@"Unsupported");
-    else if (isJailbroken)
+    if (isJailbroken)
         jailbreakButtonTitle = DOLocalizedString(@"Status_Title_Jailbroken");
     else if (removeJailbreakEnabled)
         jailbreakButtonTitle = DOLocalizedString(@"Button_Remove_Jailbreak");
